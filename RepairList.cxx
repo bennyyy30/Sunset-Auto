@@ -35,17 +35,14 @@ std::istream& operator>>(std::istream& stream, RepairList& repairlist) {
 /***********************
  ** Constructor
  ***********************/
-// TO DO
-RepairList::RepairList() {
-
-};
+RepairList::RepairList() : _dailyList(), _nowServicing() {
+}
 
 /*********************
  ** Destructor
  *********************/
-// TO DO
 RepairList::~RepairList() {
-
+  _dailyList.clear();
 }
 
 /************************
@@ -61,13 +58,12 @@ RepairList& RepairList::operator+=(const RepairList& rhs) {
 /***********************
  ** Queries or getters
  ***********************/
-// TO DO
 // If you decide to use std::forward_list, keep in mind that some implementations of a singly linked list maintain the size (number of elements in the list).
 // std::forward_list does not. The size of singly linked list must be calculated on demand by walking the list from beginning to end counting the
 // number of elements visited. The STL's std::distance() function does that, or you can write your own loop.
 std::size_t RepairList::size() const {
   // return the size of the list
-
+  return _dailyList.size();
 }
 
 // TO DO
