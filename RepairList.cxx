@@ -48,28 +48,26 @@ RepairList::~RepairList() {
 /************************
  ** Assignment operator
  ************************/
-// TO DO
 RepairList& RepairList::operator+=(const RepairList& rhs) {
   // Concatenate the right-hand side list of repair requests to this list by
   // repeatedly adding each repair at the end of the current repair list.
-
+  for (const auto& requests : rhs._dailyList) {
+    _dailyList.push_back(requests);
+  }
+  return *this;
 }
 
 /***********************
  ** Queries or getters
  ***********************/
-// If you decide to use std::forward_list, keep in mind that some implementations of a singly linked list maintain the size (number of elements in the list).
-// std::forward_list does not. The size of singly linked list must be calculated on demand by walking the list from beginning to end counting the
-// number of elements visited. The STL's std::distance() function does that, or you can write your own loop.
 std::size_t RepairList::size() const {
   // return the size of the list
   return _dailyList.size();
 }
 
-// TO DO
 // return the current repair
 Repair RepairList::currRepair() const {
-
+  return *_nowServicing;
 }
 
 /***********************
@@ -93,23 +91,24 @@ void RepairList::loadAdvanceList(const std::string& filename) {
   }
 }
 
-// TO DO
 // The current repair has been serviced, so
 // move the iterator to the next request.
 void RepairList::next() {
-
+  ++_nowServicing;
 }
 
-// TO DO
 // Add a repair request to the current list.
 void RepairList::addToList(const Repair& newRequest) {
-
+  _dailyList.push_back(newRequest);
 }
 
-// TO DO
 // Insert a repair request coming from a loyal customer
 // right after the current iterator, but do not make
 // changes to the current iterator.
 void RepairList::insertLoyal(const Repair& newRequest) {
-
+  auto loyalRequest = _nowServicing;
+  if (_nowServicing != _dailyList.end()) {
+    ++loyalRequest;
+  }
+  _dailyList.insert(loyalRequest, newRequest);
 }
