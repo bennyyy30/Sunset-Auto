@@ -19,7 +19,7 @@ class RepairList {
     ~RepairList();  // destructor
 
     // Queries or getters
-    std::size_t size() const;    // returns the number of repair requests in the list
+    std::size_t size() const;  // returns the number of repair requests in the list
     Repair currRepair() const;  // return the current repair request
 
     // read from a file
@@ -32,8 +32,6 @@ class RepairList {
 
   private:
     // Instance attributes
-    // But you can select to use your own implementation of Doubly Linked List,
-    // or use std::forward_list<Repair> instead.
     std::list<Repair> _dailyList;
     std::list<Repair>::iterator _nowServicing = _dailyList.end();
 };
